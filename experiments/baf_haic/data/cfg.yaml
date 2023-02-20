@@ -1,0 +1,14 @@
+data_path: '../baf/baf.parquet'
+
+input_data_path: '../baf/Base.parquet'
+
+data_cols:
+  label: 'fraud_bool'
+  timestamp: 'month'
+  protected: 'customer_age'
+  categorical:
+    - "payment_type"
+    - "employment_status"
+    - "housing_status"
+    - "source"
+    - "device_os"
