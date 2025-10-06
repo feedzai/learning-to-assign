@@ -1,0 +1,36 @@
+output_paths:
+  metadata: '../baf/testbed/metadata.yaml'
+  train_dir: '../baf/testbed/train/'
+  test_dir: '../baf/testbed/test/'
+
+data_cfg_path: './data/cfg.yaml'
+experts_pred_path: './expert_pred_deployment.parquet'
+expert_ids_path: '../baf/expert_ids.yaml'
+
+splits:  # open intervals [a, b[
+  train: [3, 7]
+  test: [7, 8]
+
+random_seed: 42
+
+environments:
+  batch:
+    small:
+      size: 1000
+    large:
+      size: 5000
+  capacity:
+    regular:
+      model: 0.5
+      experts: 'homogeneous'
+    model_dominant:
+      model: 0.8
+      experts: 'homogeneous'
+    irregular:
+      model: 0.5
+      experts: 'gaussian'
+      stdev: 0.2
+    inconstant:
+      model: 0.5
+      experts: 'homogeneous'
+      absent: 0.5

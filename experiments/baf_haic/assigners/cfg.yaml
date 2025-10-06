@@ -1,0 +1,97 @@
+exp_name: '22_10_26'
+models_path:  './learning-to-defer/baf_haic/'
+results_path: './learning-to-defer/baf_haic/'
+
+metadata: '../baf/testbed/metadata.yaml'
+train_paths:
+  environments: '../baf/testbed/train/'
+
+test_paths:
+  data: '../baf/testbed/test/test.parquet'
+  environments: '../baf/testbed/test/'
+  experts_pred: '../baf/haic_test/test_expert_pred.parquet'
+
+random_seed: 42
+n_jobs: 1
+
+fpr: 0.05
+
+human_expertise_model:
+  hyperparam_space: './learning-to-defer/experiments/baf_haic/assigners/param_space.yaml'
+  n_trials: 100
+  random_seed: 42
+
+base_cfg:
+  confidence_deferral: False
+  solver: scheduler
+  calibration: True
+  fp_cost: 'theoretical'
+  fp_protected_penalty: 0
+  dynamic: False
+  target_fpr: 0.05
+  target_fpr_disparity: 1.2
+  fpr_learning_rate: 0
+  fpr_disparity_learning_rate: 0
+
+experiments:
+  - batch:
+      - large
+      - small
+    capacity:
+      - regular
+      - model_dominant
+      - inconstant
+      - irregular
+    confidence_deferral:
+      - True
+      - False
+    solver:
+      - random
+      - individual
+      - scheduler
+    calibration:
+      - True
+      - False
+
+  - batch:
+      - large
+      - small
+    capacity:
+      - regular
+      - model_dominant
+      - inconstant
+      - irregular
+    fp_cost:
+      - 'theoretical'
+      - 0.02
+      - 0.03
+      - 0.04
+      - 0.05
+      - 1
+      - 2
+
+  - batch:
+      - large
+      - small
+    capacity:
+      - regular
+      - model_dominant
+      - inconstant
+      - irregular
+    fp_cost:
+      - 'theoretical'
+      - 0.015
+      - 0.02
+      - 0.025
+      - 0.0275
+      - 0.03
+      - 0.0325
+      - 0.035
+      # - 0.0375
+      - 0.04
+      - 0.05
+    fp_protected_penalty:
+      - 0
+      - 0.01
+      - 0.02
+      - 0.05

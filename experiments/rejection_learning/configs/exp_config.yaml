@@ -1,0 +1,36 @@
+name: optuna100
+random_seed: 42
+n_jobs: 30  # 30
+deterministic: True
+overwrite: True
+show_plots: False
+n_trials: 100
+
+target_coverage: 0.98
+target_fpr: 0.05
+
+LOF:
+  n_neighbors: 20
+  metric: 'l1'
+  novelty: True
+
+isolation_forest:
+  n_estimators: 500
+
+LGBMEnsemble:
+  n_estimators: 100
+  lgbm_param_grid:
+    boosting_type:
+      - gbdt  # goss does not support bagging
+    subsample_freq:
+      - 1
+    subsample:
+      type: float
+      range: [ 0, 1 ]
+      log: False
+
+LGBMEnsembleGOSS:
+  n_estimators: 100
+  lgbm_param_grid:
+    boosting_type:
+      - goss
